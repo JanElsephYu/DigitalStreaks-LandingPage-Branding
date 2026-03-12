@@ -1,108 +1,159 @@
 import streamlit as st
 
 # --- PAGE CONFIGURATION ---
-# This sets the tab title and forces a wide layout.
 st.set_page_config(
-    page_title="Brand Strategy | Digital Streaks Solutions Inc.",
-    page_icon="🚀",
+    page_title="Brand Strategy | Digital Streaks Solutions",
+    page_icon="⚡",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# --- CUSTOM CSS (THEMING & LANDING PAGE ENFORCEMENT) ---
-# We hide the default Streamlit menu to prevent users from navigating away.
-# We also apply Digital Streaks colors: Teal (#0E6A82), Orange (#FF5722), and force text colors.
+# --- ADVANCED CUSTOM CSS (PREMIUM DARK THEME) ---
 custom_css = """
 <style>
-    /* Hide Streamlit Header, Footer, and Menu to prevent navigation */
+    /* 1. Hide Streamlit Nav & Footer */
     #MainMenu {visibility: hidden;}
     header {visibility: hidden;}
     footer {visibility: hidden;}
     
-    /* Main Background */
+    /* 2. Global Dark Background & Fonts */
     .stApp {
-        background-color: #F8F9FA !important;
+        background-color: #0B0E14 !important;
     }
     
-    /* FORCE ALL TEXT TO BE DARK (Fixes the invisible text bug in Dark Mode) */
+    /* Force Text Colors for Dark Theme */
     h1, h2, h3, h4, h5, h6, p, span, label, li, div[data-testid="stMarkdownContainer"] {
-        color: #2C3E50 !important;
+        color: #E0E6ED !important;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
     }
     
-    /* Ensure the button text stays WHITE so it doesn't blend in */
-    div.stButton > button:first-child p, 
-    div.stButton > button:first-child span {
-        color: #FFFFFF !important; 
-    }
-
-    /* Hero Section Styling - Centered for Landing Page Feel */
+    /* 3. Hero Section - Gradient Typography */
     .hero-title {
-        color: #0E6A82 !important;
-        font-size: 3.5rem;
-        font-weight: 800;
-        line-height: 1.2;
-        margin-bottom: 0.5rem;
+        background: linear-gradient(90deg, #7B61FF 0%, #00D1FF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 1rem;
         text-align: center;
+        letter-spacing: -1.5px;
     }
     .hero-subtitle {
-        color: #2C3E50 !important;
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
+        color: #A0ABB8 !important;
+        font-size: 1.3rem;
+        font-weight: 400;
+        margin-bottom: 3rem;
         text-align: center;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    /* Primary CTA Button Styling */
+    /* 4. Master Button Styling (Pill-shaped, Gradient, Hover Glow) */
     div.stButton > button:first-child {
-        background-color: #FF5722 !important;
-        color: white !important;
-        border-radius: 8px;
-        padding: 0.75rem 2rem;
-        font-size: 1.25rem;
-        font-weight: bold;
-        border: none;
+        background: linear-gradient(90deg, #7B61FF 0%, #00D1FF 100%) !important;
+        color: #FFFFFF !important;
+        border-radius: 50px !important;
+        padding: 0.8rem 2.5rem !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        border: none !important;
         width: 100%;
-        transition: 0.3s;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(123, 97, 255, 0.3);
     }
     div.stButton > button:first-child:hover {
-        background-color: #E64A19 !important;
-        border: none;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 209, 255, 0.5);
     }
-    
-    /* Package Card Styling */
+    div.stButton > button:first-child p {
+        color: #FFFFFF !important;
+        font-size: 1.1rem !important;
+        margin: 0 !important;
+    }
+
+    /* 5. Package Cards Styling */
     .package-card {
-        background-color: #FFFFFF;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border-top: 5px solid #0E6A82;
-        margin-bottom: 15px;
+        background-color: #161A23;
+        padding: 30px 25px;
+        border-radius: 16px;
+        border: 1px solid #2A2F3A;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    .package-card:hover {
+        transform: translateY(-5px);
+        border-color: #7B61FF;
+        box-shadow: 0 10px 30px rgba(123, 97, 255, 0.15);
     }
     .package-card.popular {
-        border-top: 5px solid #FF5722;
+        background: linear-gradient(180deg, #1A1F2B 0%, #161A23 100%);
+        border: 1px solid #00D1FF;
+        position: relative;
+    }
+    .package-card.popular::before {
+        content: 'MOST POPULAR';
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #7B61FF, #00D1FF);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 4px 12px;
+        border-radius: 20px;
+        letter-spacing: 1px;
+    }
+    
+    /* 6. Section Titles */
+    .section-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #FFFFFF !important;
+        margin-bottom: 0.5rem;
+        margin-top: 2rem;
+    }
+    .section-desc {
+        color: #A0ABB8 !important;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+    
+    /* 7. Custom sleek divider */
+    .custom-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #2A2F3A, transparent);
+        border: none;
+        margin: 4rem 0;
     }
 </style>
 """
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# --- HERO SECTION (The 2-Second Elevator Pitch) ---
-st.markdown('<div class="hero-title">Stop Being the Best Kept Secret.</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-subtitle">Professional branding that helps you scale your business, build trust, and cut overhead costs. Designed for remote-first leaders.</div>', unsafe_allow_html=True)
+# --- HERO SECTION ---
+st.markdown('<div style="margin-top: 3rem;"></div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-title">Your Brand is Your Best Salesperson.<br>Is it Closing the Deal?</div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-subtitle">Digital Streaks builds high-impact visual identities that scale. Stop blending in with the generic competition; start leading your industry.</div>', unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([1, 2, 1])
+col1, col2, col3 = st.columns([1, 1.5, 1])
 with col2:
-    if st.button("BOOK YOUR FREE STRATEGY CALL NOW", key="hero_cta"):
+    if st.button("BOOK YOUR FREE STRATEGY CALL", key="hero_cta"):
         st.success("Redirecting to Calendar... (Link goes here)")
 
-st.divider()
+st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
 
-# --- INTERACTIVE #1: BRAND SCALABILITY AUDIT (Marketing Hook) ---
-st.header("1. The Brand Scalability Audit")
-st.write("Take this 2-question pulse check to see if your current brand is helping or hurting your conversions.")
+# --- INTERACTIVE #1: BRAND SCALABILITY AUDIT ---
+st.markdown('<div class="section-title">1. The Brand Scalability Audit</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-desc">Take this 2-question pulse check to see if your current brand is helping or hurting your conversions.</div>', unsafe_allow_html=True)
 
 audit_q1 = st.radio(
     "When a lead visits your online profiles, do they instantly know why you are better than the competition?", 
     ["Select an answer...", "Yes, my messaging is crystal clear.", "No, it's a bit generic.", "I'm not sure."]
 )
+
+st.write("") # Spacer
 
 audit_q2 = st.radio(
     "Are your visual assets (logo, colors, graphics) consistent across every platform?", 
@@ -110,90 +161,127 @@ audit_q2 = st.radio(
 )
 
 if audit_q1 != "Select an answer..." and audit_q2 != "Select an answer...":
-    st.info("**Audit Result:** Consistency and clarity are the pillars of trust. Let's fix the gaps together.")
-    if st.button("Discuss My Audit Results", key="audit_cta"):
-        st.success("Redirecting to Calendar...")
+    st.info("💡 **Audit Result:** Consistency and clarity are the pillars of trust. Let's fix the gaps together.")
+    col_a, col_b, col_c = st.columns([1, 2, 1])
+    with col_b:
+        if st.button("Discuss My Audit Results", key="audit_cta"):
+            st.success("Redirecting to Calendar...")
 
-st.divider()
+st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
 
 # --- INTERACTIVE #2: MOOD / STYLE PICKER ---
-st.header("2. Choose Your Business Identity")
-st.write("What vibe best represents the future of your company? (Select one to see your next step)")
+st.markdown('<div class="section-title">2. Choose Your Business Identity</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-desc">What aesthetic best represents the future of your company?</div>', unsafe_allow_html=True)
 
 vibe_choice = st.selectbox(
     "Select a Brand Archetype:", 
-    ["Choose a style...", "Modern Tech & Minimalist", "Human-Centric & Warm", "Bold & Disruptive"]
+    ["Choose a style...", "Modern Tech & Minimalist", "Human-Centric & Warm", "Bold & Disruptive", "Premium & Corporate"]
 )
 
 if vibe_choice != "Choose a style...":
-    st.success(f"Excellent choice. A **{vibe_choice}** brand requires specific font pairings and color psychology.")
-    # Supervisor rule applied: CTA immediately after brand color/style selection
-    if st.button(f"Book a Consultation to Build Your {vibe_choice} Brand", key="vibe_cta"):
-         st.success("Redirecting to Calendar...")
+    st.success(f"✨ Excellent choice. A **{vibe_choice}** brand requires specific font pairings, tone of voice, and color psychology to convert traffic into clients.")
+    st.write("")
+    col_x, col_y, col_z = st.columns([1, 2, 1])
+    with col_y:
+        if st.button(f"Book a Consultation to Build a {vibe_choice} Brand", key="vibe_cta"):
+             st.success("Redirecting to Calendar...")
 
-st.divider()
+st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
 
-# --- PACKAGES (Information Only, No Direct Selling) ---
-st.header("3. Managed Outsourcing Branding Tiers")
-st.write("We don't just design; we partner with you. Which level fits your current growth stage?")
+# --- PACKAGES (Information Only) ---
+st.markdown('<div class="section-title">3. Managed Outsourcing Branding Tiers</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-desc">We don\'t just design; we partner with you. Explore our foundational pathways.</div>', unsafe_allow_html=True)
 
 pack_col1, pack_col2, pack_col3 = st.columns(3)
 
 with pack_col1:
     st.markdown('<div class="package-card">', unsafe_allow_html=True)
-    st.subheader("Starter Tier")
-    st.write("Perfect for new startups needing a professional visual identity.")
-    st.write("- Primary & Secondary Logos\n- Color Palette\n- Typography Guidelines")
-    st.button("Inquire About Starter", key="btn_starter")
+    st.markdown('<h3 style="color: #FFFFFF; margin-top:0;">Starter Tier</h3>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #00D1FF; font-size: 1.5rem; font-weight: bold; margin-bottom: 15px;">$499</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #A0ABB8; font-size: 0.9rem;">Perfect for new startups needing a professional baseline.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    <ul style='color: #E0E6ED; font-size: 0.95rem; line-height: 1.8; padding-left: 20px;'>
+        <li>Primary & Secondary Logos</li>
+        <li>Core Color Palette</li>
+        <li>Typography Guidelines</li>
+    </ul><br>
+    """, unsafe_allow_html=True)
+    st.button("Discuss Starter Tier", key="btn_starter")
     st.markdown('</div>', unsafe_allow_html=True)
 
 with pack_col2:
     st.markdown('<div class="package-card popular">', unsafe_allow_html=True)
-    st.subheader("Growth Tier (Popular)")
-    st.write("For scaling businesses needing a full digital presence makeover.")
-    st.write("- Everything in Starter\n- Social Media Templates\n- Brand Voice Guide")
-    st.button("Inquire About Growth", key="btn_growth")
+    st.markdown('<h3 style="color: #FFFFFF; margin-top:0;">Growth Tier</h3>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #00D1FF; font-size: 1.5rem; font-weight: bold; margin-bottom: 15px;">$1,499</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #A0ABB8; font-size: 0.9rem;">For scaling businesses needing a full digital presence makeover.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    <ul style='color: #E0E6ED; font-size: 0.95rem; line-height: 1.8; padding-left: 20px;'>
+        <li>Everything in Starter</li>
+        <li>Social Media Templates</li>
+        <li>Brand Voice Guide</li>
+        <li>Presentation Deck Design</li>
+    </ul><br>
+    """, unsafe_allow_html=True)
+    st.button("Discuss Growth Tier", key="btn_growth")
     st.markdown('</div>', unsafe_allow_html=True)
 
 with pack_col3:
     st.markdown('<div class="package-card">', unsafe_allow_html=True)
-    st.subheader("Premium Tier")
-    st.write("Total brand and strategy management for established leaders.")
-    st.write("- Everything in Growth\n- Full Messaging Strategy\n- Priority Design Support")
-    st.button("Inquire About Premium", key="btn_premium")
+    st.markdown('<h3 style="color: #FFFFFF; margin-top:0;">Premium Tier</h3>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #00D1FF; font-size: 1.5rem; font-weight: bold; margin-bottom: 15px;">$3,499</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #A0ABB8; font-size: 0.9rem;">Total brand strategy and management for established leaders.</p>', unsafe_allow_html=True)
+    st.markdown("""
+    <ul style='color: #E0E6ED; font-size: 0.95rem; line-height: 1.8; padding-left: 20px;'>
+        <li>Everything in Growth</li>
+        <li>Full Messaging Strategy</li>
+        <li>Custom Collateral Suite</li>
+        <li>Priority Design Support</li>
+    </ul><br>
+    """, unsafe_allow_html=True)
+    st.button("Discuss Premium Tier", key="btn_premium")
     st.markdown('</div>', unsafe_allow_html=True)
 
-st.divider()
+st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
 
 # --- INTERACTIVE #3: THE BRAND DOCTOR ---
-st.header("4. What is your biggest branding roadblock?")
+st.markdown('<div class="section-title">4. Why Most Brands Fail</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-desc">Select your biggest roadblock to see how our agency solves it.</div>', unsafe_allow_html=True)
+
 tab1, tab2, tab3 = st.tabs(["Unclear Messaging", "Inconsistent Visuals", "Lack of Trust"])
 
 with tab1:
-    st.write("**The Diagnosis:** Your audience doesn't understand what you do quickly enough.")
-    st.write("**The Solution:** We craft 'Elevator Pitch' copy that converts.")
+    st.markdown("<br><p style='font-size: 1.1rem;'>⚠️ <strong>The Diagnosis:</strong> Your audience doesn't understand what you do quickly enough.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.1rem; color: #00D1FF;'>✅ <strong>The Solution:</strong> We craft 'Elevator Pitch' copy that cuts through the noise and converts.</p>", unsafe_allow_html=True)
 with tab2:
-    st.write("**The Diagnosis:** Your materials look like they belong to 5 different companies.")
-    st.write("**The Solution:** We build a strict, easy-to-use brand guideline.")
+    st.markdown("<br><p style='font-size: 1.1rem;'>⚠️ <strong>The Diagnosis:</strong> Your materials look like they belong to 5 different companies.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.1rem; color: #00D1FF;'>✅ <strong>The Solution:</strong> We build a strict, easy-to-use brand guideline for your entire team.</p>", unsafe_allow_html=True)
 with tab3:
-    st.write("**The Diagnosis:** High traffic, but low conversions. People bounce.")
-    st.write("**The Solution:** We elevate your aesthetic to match your premium service quality.")
+    st.markdown("<br><p style='font-size: 1.1rem;'>⚠️ <strong>The Diagnosis:</strong> High traffic, but low conversions. People bounce.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 1.1rem; color: #00D1FF;'>✅ <strong>The Solution:</strong> We elevate your aesthetic to match your premium service quality, building instant credibility.</p>", unsafe_allow_html=True)
 
-st.divider()
+st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
 
 # --- VIDEO PROOF ---
-st.header("5. See Our Process in Action")
-# Placeholder for the Digital Streaks video
-st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") # Replace with actual company video URL
+st.markdown('<div class="section-title">5. See Our Process in Action</div>', unsafe_allow_html=True)
+# Using a clean column setup to prevent the video from being too massive on desktop screens
+vid_col1, vid_col2, vid_col3 = st.columns([1, 4, 1])
+with vid_col2:
+    st.video("https://www.youtube.com/watch?v=dQw4w9WgXcQ") 
 
-st.divider()
+st.markdown('<hr class="custom-divider">', unsafe_allow_html=True)
 
 # --- FINAL CTA & FOOTER ---
-st.markdown("<h2 style='text-align: center; color: #0E6A82 !important;'>Ready to Make Your Mark Today?</h2>", unsafe_allow_html=True)
-col_a, col_b, col_c = st.columns([1, 2, 1])
-with col_b:
-    if st.button("BOOK YOUR BRANDING CALL", key="final_cta"):
+st.markdown("<div class='hero-title' style='font-size: 3rem;'>Ready to Make Your Mark?</div>", unsafe_allow_html=True)
+st.markdown("<div class='hero-subtitle' style='margin-bottom: 2rem;'>Your solution to high overhead and inconsistent branding is just one call away.</div>", unsafe_allow_html=True)
+
+col_f1, col_f2, col_f3 = st.columns([1, 1.5, 1])
+with col_f2:
+    if st.button("BOOK YOUR BRANDING STRATEGY CALL", key="final_cta"):
         st.success("Redirecting to Calendar...")
 
-st.caption("---")
-st.caption("© 2026 Digital Streaks Solutions Inc. | Cebu City, Philippines | Managed Outsourcing & Digital Marketing")
+st.write("<br><br><br>", unsafe_allow_html=True)
+st.markdown("""
+<div style='text-align: center; color: #A0ABB8; font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid #2A2F3A;'>
+    © 2026 Digital Streaks Solutions Inc. | Cebu City, Philippines | Managed Outsourcing & Digital Marketing
+</div>
+""", unsafe_allow_html=True)
